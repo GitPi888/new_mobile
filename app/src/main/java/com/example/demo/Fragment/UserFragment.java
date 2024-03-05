@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +50,7 @@ public class UserFragment extends Fragment {
     String email_user,password_user;
     TextView txt_email,txt_name,update_password,txt_Delete;
     Button btn_logout;
-
+    RelativeLayout relativeLayout;
 
     public UserFragment() {
         // Required empty public constructor
@@ -105,17 +106,21 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_user, container, false);
+        relativeLayout=root.findViewById(R.id.layout_UserName);
         txt_email = root.findViewById(R.id.fragment_Email);
         txt_name = root.findViewById(R.id.fragment_Username);
         txt_Delete=root.findViewById(R.id.txt_Delete_Account);
         update_password=root.findViewById(R.id.txt_Update_Password);
         btn_logout=root.findViewById(R.id.btn_Logout);
         setClick();
+        showData();
+        return root;
+    }
+    private void showData(){
         ArrayList<UserModel> ds = new ArrayList<>();
         ds=getData(email_user);
         txt_email.setText(ds.get(0).getEmail());
         txt_name.setText((ds.get(0).getName()));
-        return root;
     }
     public void setClick(){
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +149,12 @@ public class UserFragment extends Fragment {
                 DialogFragment da = new Dialog_Delete();
                 da.setArguments(args);
                 da.show(getChildFragmentManager(),"Dialog_Delete");
+            }
+        });
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

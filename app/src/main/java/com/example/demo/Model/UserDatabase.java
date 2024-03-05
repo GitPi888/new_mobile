@@ -117,6 +117,16 @@ public class UserDatabase extends SQLiteOpenHelper {
        }
        return true;
     }
+    public  boolean UpdateUserName(String email,String user_Name){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("NAME",user_Name);
+        int check = db.update("USER",cv,"EMAIL=?",new String[]{email});
+        if(check<=0){
+            return false;
+        }
+        return true;
+    }
     public boolean DeleteUser(String email){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("Select*from USER where EMAIL=?",new String[]{email});
